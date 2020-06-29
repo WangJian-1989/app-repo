@@ -2,7 +2,7 @@
 
 FROM python:3.7-alpine
 
-MAINTAINER Daoming
+MAINTAINER wangjian
 
 COPY . /app
 WORKDIR /app
