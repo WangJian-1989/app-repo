@@ -25,7 +25,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 echo "3.Push Docker Image Stage"
-                withDockerRegistry(credentialsId: 'ecr:ap-northeast-2:AWS-AKSK', url: '232660966648.dkr.ecr.ap-northeast-2.amazonaws.com/gitops-app-demo') {
+                withDockerRegistry(credentialsId: 'ecr:ap-northeast-2:AWS-AKSK', url: 'https://232660966648.dkr.ecr.ap-northeast-2.amazonaws.com/gitops-app-demo') {
                     sh "docker push ${repo_name}/${app_name}:latest"
                     sh "docker push ${repo_name}/${app_name}:${build_tag}"
                 }
