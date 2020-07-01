@@ -1,4 +1,4 @@
-def label = "gitops-jenkins-jenkins-slave-${UUID.randomUUID().toString()}"
+def label = "slave-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, containers: [
   containerTemplate(name: 'maven', image: 'maven:3.6-alpine', command: 'cat', ttyEnabled: true, serviceAccount: gitops-jenkins),
@@ -33,7 +33,7 @@ podTemplate(label: label, containers: [
     stage('运行 Kubectl') {
       container('kubectl') {
         echo "查看 K8S 集群 Pod 列表"
-        sh "kubectl get pods"
+        sh "kubectl get pods -n kube-system"
       }
     }
     stage('运行 Helm') {
