@@ -2,14 +2,14 @@ def label = "slave-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, cloud: 'kubernetes',
     containers: [
-        containerTemplate(name: 'jnlp',image: '232660966648.dkr.ecr.ap-northeast-2.amazonaws.com/jenkins-slave:latest',ttyEnabled: true,command: 'cat')
+        containerTemplate(name: 'slave',image: '232660966648.dkr.ecr.ap-northeast-2.amazonaws.com/jenkins-slave:latest',ttyEnabled: true,command: 'cat')
     ],
     volumes: [
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
     ],
     serviceAccount:'gitops-jenkins') {
     node(label) {
-         container('jnlp'){
+         container('slave'){
              stage('Get Source'){
                  echo "1.Clone Repo Stage"
                  git credentialsId: 'GitHubAccess', url: 'https://github.com/successfuljian/app-repo'
