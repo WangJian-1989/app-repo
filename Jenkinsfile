@@ -6,7 +6,7 @@ podTemplate(label: label, cloud: 'kubernetes',
         image: '232660966648.dkr.ecr.ap-northeast-2.amazonaws.com/jenkins-slave:latest',
         command: 'cat', ttyEnabled: true),
     ],
-    serviceAccount:'gitops-jenkins'
+    serviceAccount:'gitops-jenkins',
     volumes: [
 	hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
     ]
