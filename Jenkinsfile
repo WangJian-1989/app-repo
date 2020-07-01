@@ -2,9 +2,9 @@ def label = "slave-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, cloud: 'kubernetes',
         containers: [
-        containerTemplate(name: 'jnlp',ttyEnabled: true,image: 'jenkins/jnlp-slave:alpine', imagePullPolicy: 'Always'),
-        containerTemplate(name: 'jnlp-mvn',ttyEnabled: true,command: 'cat',image: 'jenkins/jnlp-slave-maven:v1.5', imagePullPolicy: 'Always'),
-        containerTemplate(name: 'jnlp-docker',ttyEnabled: true,command: 'cat',image: 'jenkins/jnlp-slave-docker:v1.6', imagePullPolicy: 'Always')
+        containerTemplate(name: 'jnlp',ttyEnabled: true,image: 'jenkins/jnlp-slave:alpine'),
+        containerTemplate(name: 'jnlp-mvn',ttyEnabled: true,command: 'cat',image: 'jenkins/jnlp-slave-maven:v1.5'),
+        containerTemplate(name: 'jnlp-docker',ttyEnabled: true,command: 'cat',image: 'jenkins/jnlp-slave-docker:v1.6')
     ],
     serviceAccount:'gitops-jenkins',
     volumes: [
