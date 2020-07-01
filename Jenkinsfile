@@ -2,9 +2,9 @@ def label = "slave-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, cloud: 'kubernetes',
         containers: [
-        containerTemplate(name: 'jnlp',ttyEnabled: true,image: 'jenkins/jnlp-slave:alpine'),
-        containerTemplate(name: 'jnlp-mvn',ttyEnabled: true,command: 'cat',image: 'jenkins/jnlp-slave-maven:v1.5'),
-        containerTemplate(name: 'jnlp-docker',ttyEnabled: true,command: 'cat',image: 'jenkins/jnlp-slave-docker:v1.6')
+        containerTemplate(name: 'jnlp',image: 'jenkins/jnlp-slave:alpine',ttyEnabled: true,command: 'cat'),
+        containerTemplate(name: 'maven',image: 'maven:3.6-alpine',ttyEnabled: true,command: 'cat'),
+        containerTemplate(name: 'docker',image: 'docker',ttyEnabled: true,command: 'cat')
     ],
     serviceAccount:'gitops-jenkins',
     volumes: [
@@ -24,14 +24,14 @@ podTemplate(label: label, cloud: 'kubernetes',
         }
     }
      stage('Build Image'){
-        container('jnlp-docker'){   
+        container('docker'){   
         echo "2.Build Docker Image Stage test"
         sh "docker build --network host -t ${repo_name}/${app_name}:latest ."
         sh "docker tag ${repo_name}/${app_name}:latest ${repo_name}/${app_name}:${build_tag}"
         }  
      }
      stage('Push Image') {
-       container('jnlp-docker'){
+       container('docker'){
        echo "3.Push Docker Image Stage"
        withDockerRegistry(credentialsId: 'ecr:ap-northeast-2:AWS-AKSK', url: 'https://232660966648.dkr.ecr.ap-northeast-2.amazonaws.com/gitops-app-demo') {
         sh "docker push ${repo_name}/${app_name}:latest"
