@@ -9,7 +9,7 @@ podTemplate(label: label, containers: [
   hostPathVolume(mountPath: '/root/.m2', hostPath: '/var/run/m2'),
   hostPathVolume(mountPath: '/home/jenkins/.kube', hostPath: '/root/.kube'),
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
-]) {
+], serviceAccount: 'gitops-jenkins') {
   node(label) {
     def myRepo = checkout scm
     def gitCommit = myRepo.GIT_COMMIT
