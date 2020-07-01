@@ -2,7 +2,7 @@ def label = "slave-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, cloud: 'kubernetes',
     containers: [
-        containerTemplate(name: 'slave',image: '232660966648.dkr.ecr.ap-northeast-2.amazonaws.com/jenkins-slave:latest',ttyEnabled: true)
+        containerTemplate(name: 'slave',image: '232660966648.dkr.ecr.ap-northeast-2.amazonaws.com/jenkins-slave:latest',ttyEnabled: true,command: 'cat')
     ],
     volumes: [
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
