@@ -1,10 +1,10 @@
 def label = "slave-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, containers: [
-  containerTemplate(name: 'maven', image: 'maven:3.6-alpine', command: 'cat', ttyEnabled: true, serviceAccount: gitops-jenkins),
-  containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true, serviceAccount: gitops-jenkins),
-  containerTemplate(name: 'kubectl', image: 'cnych/kubectl', command: 'cat', ttyEnabled: true, serviceAccount: gitops-jenkins), 
-  containerTemplate(name: 'helm', image: 'cnych/helm', command: 'cat', ttyEnabled: true, serviceAccount: gitops-jenkins) 
+  containerTemplate(name: 'maven', image: 'maven:3.6-alpine', command: 'cat', ttyEnabled: true),
+  containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
+  containerTemplate(name: 'kubectl', image: 'cnych/kubectl', command: 'cat', ttyEnabled: true), 
+  containerTemplate(name: 'helm', image: 'cnych/helm', command: 'cat', ttyEnabled: true) 
 ], volumes: [
   hostPathVolume(mountPath: '/root/.m2', hostPath: '/var/run/m2'),
   hostPathVolume(mountPath: '/home/jenkins/.kube', hostPath: '/root/.kube'),
